@@ -4,7 +4,7 @@ import warnings
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.cache import cache
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import logout
@@ -204,9 +204,11 @@ class BaseView(object):
     #===========================================================================
 
     def __init__(self, *args, **kwargs):
+        super().__init__()
         # Preserve args and kwargs
         self._initial_args = args
         self._initial_kwargs = kwargs
+        self.__qualname__ = self.__class__.__name__
 
     @property
     def __name__(self):
